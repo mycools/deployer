@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\View\Presenters;
 
@@ -15,7 +15,7 @@ trait RuntimePresenter
      * @throws RuntimeException
      * @return string
      */
-    public function presentReadableRuntime()
+    public function presentReadableRuntime(): string
     {
         if (!$this->getWrappedObject() instanceof RuntimeInterface) {
             throw new RuntimeException(

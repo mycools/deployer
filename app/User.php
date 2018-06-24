@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
@@ -52,7 +52,7 @@ class User extends Authenticatable implements HasPresenter
      *
      * @return string
      */
-    public function requestEmailToken()
+    public function requestEmailToken(): string
     {
         $this->email_token = token(40);
         $this->save();
@@ -65,7 +65,7 @@ class User extends Authenticatable implements HasPresenter
      *
      * @return string
      */
-    public function getPresenterClass()
+    public function getPresenterClass(): string
     {
         return UserPresenter::class;
     }
@@ -77,7 +77,7 @@ class User extends Authenticatable implements HasPresenter
      *
      * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
-    public function getHasTwoFactorAuthenticationAttribute()
+    public function getHasTwoFactorAuthenticationAttribute(): bool
     {
         return !empty($this->google2fa_secret);
     }

@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use REBELinBLUE\Deployer\Traits\BroadcastChanges;
 use REBELinBLUE\Deployer\Traits\HasTarget;
@@ -60,7 +61,7 @@ class Command extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function servers()
+    public function servers(): BelongsToMany
     {
         return $this->belongsToMany(Server::class)
                     ->orderBy('order', 'ASC');

@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use McCool\LaravelAutoPresenter\HasPresenter;
 use REBELinBLUE\Deployer\View\Presenters\RuntimeInterface;
 use REBELinBLUE\Deployer\View\Presenters\ServerLogPresenter;
@@ -49,7 +50,7 @@ class ServerLog extends Model implements HasPresenter, RuntimeInterface
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function server()
+    public function server(): BelongsTo
     {
         return $this->belongsTo(Server::class);
     }
@@ -73,7 +74,7 @@ class ServerLog extends Model implements HasPresenter, RuntimeInterface
      *
      * @return string
      */
-    public function getPresenterClass()
+    public function getPresenterClass(): string
     {
         return ServerLogPresenter::class;
     }

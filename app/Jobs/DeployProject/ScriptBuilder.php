@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Jobs\DeployProject;
 
@@ -64,9 +64,10 @@ class ScriptBuilder
      * @param  DeployStep $step
      * @param  string     $release_archive
      * @param  string     $private_key
-     * @return $this
+     *
+     * @return self
      */
-    public function setup(Deployment $deployment, DeployStep $step, $release_archive, $private_key)
+    public function setup(Deployment $deployment, DeployStep $step, $release_archive, $private_key): self
     {
         $this->deployment      = $deployment;
         $this->step            = $step;

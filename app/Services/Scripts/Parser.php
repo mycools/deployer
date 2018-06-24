@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Services\Scripts;
 
@@ -33,7 +33,7 @@ class Parser
      *
      * @return string
      */
-    public function parseString($script, array $tokens = [])
+    public function parseString(string $script, array $tokens = []): string
     {
         $values = array_values($tokens);
 
@@ -52,7 +52,7 @@ class Parser
      *
      * @return string
      */
-    public function parseFile($file, array $tokens = [])
+    public function parseFile(string $file, array $tokens = []): string
     {
         $template = resource_path('scripts/' . str_replace('.', '/', $file) . '.sh');
 

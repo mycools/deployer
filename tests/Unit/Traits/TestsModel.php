@@ -60,30 +60,30 @@ trait TestsModel
                 $class->shouldReceive($type)
                       ->once()
                       ->with(m::pattern('/' . str_singular($relationship) . '/i'))
-                      ->andReturn(m::self());
+                      ->andReturn($this->getRelationshipMock($type));
                 break;
             case 2:
                 $class->shouldReceive($type)
                       ->once()
                       ->with(m::pattern('/' . str_singular($relationship) . '/i'), $args[1])
-                      ->andReturn(m::self());
+                      ->andReturn($this->getRelationshipMock($type));
                 break;
             case 3:
                 $class->shouldReceive($type)
                       ->once()
                       ->with(m::pattern('/' . str_singular($relationship) . '/i'), $args[1], $args[2])
-                      ->andReturn(m::self());
+                      ->andReturn($this->getRelationshipMock($type));
                 break;
             case 4:
                 $class->shouldReceive($type)
                       ->once()
                       ->with(m::pattern('/' . str_singular($relationship) . '/i'), $args[1], $args[2], $args[3])
-                      ->andReturn(m::self());
+                      ->andReturn($this->getRelationshipMock($type));
                 break;
             default:
                 $class->shouldReceive($type)
                       ->once()
-                      ->andReturn(m::self());
+                      ->andReturn($this->getRelationshipMock($type));
                 break;
         }
 
@@ -96,14 +96,23 @@ trait TestsModel
 
         $mocked->shouldReceive($type)
                ->once()
-               ->andReturnUsing(function () use (&$args) {
+               ->andReturnUsing(function () use (&$args, $type) {
                    $args = func_get_args();
 
-                   return m::self();
+                   return $this->getRelationshipMock($type);
                });
 
         $mocked->$relationship();
 
         return $args;
+    }
+
+    private function getRelationshipMock($type)
+    {
+        $mock = m::mock('\\Illuminate\\Database\\Eloquent\\Relations\\' . ucfirst($type));
+        $mock->shouldReceive('orderBy')->andReturnSelf();
+        // $mock->shouldIgnoreMissing(m::self());
+
+        return $mock;
     }
 }

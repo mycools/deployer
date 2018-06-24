@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use REBELinBLUE\Deployer\Traits\BroadcastChanges;
 
@@ -48,7 +49,7 @@ class Group extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function projects()
+    public function projects(): HasMany
     {
         return $this->hasMany(Project::class)
                     ->orderBy('name');
@@ -59,7 +60,7 @@ class Group extends Model
      *
      * @return int
      */
-    public function getProjectCountAttribute()
+    public function getProjectCountAttribute(): int
     {
         return $this->projects->count();
     }

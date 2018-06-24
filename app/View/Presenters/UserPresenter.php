@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\View\Presenters;
 
@@ -27,7 +27,7 @@ class UserPresenter extends Presenter
      *
      * @return string
      */
-    public function presentAvatarUrl()
+    public function presentAvatarUrl(): string
     {
         if ($this->getWrappedObject()->avatar) {
             return url($this->getWrappedObject()->avatar);

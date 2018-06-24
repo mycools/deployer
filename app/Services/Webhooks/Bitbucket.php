@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Services\Webhooks;
 
@@ -12,7 +12,7 @@ class Bitbucket extends Webhook
      *
      * @return bool
      */
-    public function isRequestOrigin()
+    public function isRequestOrigin(): bool
     {
         return ($this->request->headers->has('X-Event-Key'));
     }

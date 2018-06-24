@@ -191,7 +191,7 @@ class RunDeploymentStepTest extends TestCase
         $process->shouldReceive('run')->once()->with(m::type('callable'));
 
         $process->shouldReceive('isSuccessful')->andReturn(false);
-        $process->shouldReceive('getErrorOutput');
+        $process->shouldReceive('getErrorOutput')->andReturn('error');
 
         $log = $this->mockLog($process);
 
@@ -227,7 +227,7 @@ class RunDeploymentStepTest extends TestCase
         }));
 
         $process->shouldReceive('isSuccessful')->andReturn(false);
-        $process->shouldReceive('getErrorOutput');
+        $process->shouldReceive('getErrorOutput')->andReturn('error');
 
         $log = $this->mockLog($process, 2);
 

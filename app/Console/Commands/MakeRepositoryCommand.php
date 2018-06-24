@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Console\Commands;
 
@@ -122,7 +122,7 @@ class MakeRepositoryCommand extends Command
         $contract  = $name . 'RepositoryInterface';
 
         $content = <<< EOF
-<?php
+<?php declare(strict_types=1);
 
 namespace $namespace;
 
@@ -148,7 +148,7 @@ EOF;
         $repository = 'Eloquent' . $name . 'Repository';
 
         $content = <<< EOF
-<?php
+<?php declare(strict_types=1);
 
 namespace $namespace;
 

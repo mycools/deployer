@@ -1,8 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use McCool\LaravelAutoPresenter\HasPresenter;
 use REBELinBLUE\Deployer\View\Presenters\DeployStepPresenter;
 
@@ -36,7 +38,7 @@ class DeployStep extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function servers()
+    public function servers(): HasMany
     {
         return $this->hasMany(ServerLog::class);
     }
@@ -46,7 +48,7 @@ class DeployStep extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function command()
+    public function command(): BelongsTo
     {
         return $this->belongsTo(Command::class)
                     ->withTrashed();
@@ -57,7 +59,7 @@ class DeployStep extends Model implements HasPresenter
      *
      * @return string
      */
-    public function getPresenterClass()
+    public function getPresenterClass(): string
     {
         return DeployStepPresenter::class;
     }
@@ -67,7 +69,7 @@ class DeployStep extends Model implements HasPresenter
      *
      * @return bool
      */
-    public function isCustom()
+    public function isCustom(): bool
     {
         return (!in_array($this->stage, [
             Command::DO_CLONE,

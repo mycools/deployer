@@ -1,10 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use McCool\LaravelAutoPresenter\HasPresenter;
 use REBELinBLUE\Deployer\Events\ModelChanged;
 use REBELinBLUE\Deployer\View\Presenters\DeploymentPresenter;
@@ -89,7 +91,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
@@ -99,7 +101,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)
                     ->withTrashed();
@@ -110,7 +112,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getCommandsAttribute()
+    public function getCommandsAttribute(): Collection
     {
         if (!$this->relationLoaded('commands')) {
             $this->loadCommands();
@@ -128,7 +130,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return HasMany
      */
-    public function steps()
+    public function steps(): HasMany
     {
         return $this->hasMany(DeployStep::class);
     }
@@ -138,7 +140,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return bool
      */
-    public function isRunning()
+    public function isRunning(): bool
     {
         return ($this->status === self::DEPLOYING);
     }
@@ -148,7 +150,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return bool
      */
-    public function isPending()
+    public function isPending(): bool
     {
         return ($this->status === self::PENDING);
     }
@@ -158,7 +160,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return bool
      */
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return ($this->status === self::COMPLETED);
     }
@@ -168,7 +170,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return bool
      */
-    public function isFailed()
+    public function isFailed(): bool
     {
         return ($this->status === self::FAILED);
     }
@@ -178,7 +180,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return bool
      */
-    public function isAborting()
+    public function isAborting(): bool
     {
         return ($this->status === self::ABORTING);
     }
@@ -188,7 +190,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return bool
      */
-    public function isAborted()
+    public function isAborted(): bool
     {
         return ($this->status === self::ABORTED);
     }
@@ -198,7 +200,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return bool
      */
-    public function isCurrent()
+    public function isCurrent(): bool
     {
         if (!isset(self::$currentDeployment[$this->project_id])) {
             self::$currentDeployment[$this->project_id] = self::where('project_id', $this->project_id)
@@ -257,7 +259,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return string
      */
-    public function getShortCommitAttribute()
+    public function getShortCommitAttribute(): string
     {
         if ($this->commit !== self::LOADING) {
             return substr($this->commit, 0, 7);
@@ -283,7 +285,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return string
      */
-    public function getPresenterClass()
+    public function getPresenterClass(): string
     {
         return DeploymentPresenter::class;
     }
@@ -293,7 +295,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return string
      */
-    public function getProjectNameAttribute()
+    public function getProjectNameAttribute(): string
     {
         return $this->project->name;
     }
@@ -303,7 +305,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return string
      */
-    public function getDeployerNameAttribute()
+    public function getDeployerNameAttribute(): string
     {
         if (!empty($this->user_id)) {
             return $this->user->name;
@@ -327,7 +329,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
-    public function getRepoFailureAttribute()
+    public function getRepoFailureAttribute(): bool
     {
         return ($this->commit === self::LOADING && $this->status === self::FAILED);
     }
@@ -337,7 +339,7 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
      *
      * @return string
      */
-    public function getReleaseIdAttribute()
+    public function getReleaseIdAttribute(): string
     {
         return $this->started_at->format('YmdHis');
     }
@@ -345,9 +347,9 @@ class Deployment extends Model implements HasPresenter, RuntimeInterface
     /**
      * Query the DB and load the HasMany relationship for commands.
      *
-     * @return $this
+     * @return self
      */
-    private function loadCommands()
+    private function loadCommands(): self
     {
         $collection = Command::join('deploy_steps', 'commands.id', '=', 'deploy_steps.command_id')
                              ->where('deploy_steps.deployment_id', $this->getKey())

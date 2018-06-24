@@ -286,10 +286,10 @@ class DeploymentTest extends TestCase
      * @dataProvider provideEmptyAccessDetails
      * @covers ::getCommitUrlAttribute
      */
-    public function testGetCommitUrlAttributeIsEmptyWhenAccessDetailsAreUnknown($expected)
+    public function testGetCommitUrlAttributeIsEmptyWhenAccessDetailsAreUnknown()
     {
         $project = m::mock(Project::class);
-        $project->shouldReceive('accessDetails')->andReturn($expected);
+        $project->shouldReceive('accessDetails')->andReturn(func_get_args()); // FIXME: This seems wrong
 
         $deployment          = new Deployment();
         $deployment->commit  = 'a-git-commit-hash';

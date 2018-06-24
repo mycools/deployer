@@ -1,9 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use McCool\LaravelAutoPresenter\HasPresenter;
 use REBELinBLUE\Deployer\Traits\BroadcastChanges;
 use REBELinBLUE\Deployer\Traits\ProjectRelations;
@@ -92,7 +95,7 @@ class Project extends Model implements HasPresenter
      *
      * @return bool
      */
-    public function isDeploying()
+    public function isDeploying(): bool
     {
         return ($this->status === self::DEPLOYING || $this->status === self::PENDING);
     }
@@ -110,7 +113,7 @@ class Project extends Model implements HasPresenter
      *
      * @return array
      */
-    public function accessDetails()
+    public function accessDetails(): array
     {
         $info = [];
 
@@ -193,7 +196,7 @@ class Project extends Model implements HasPresenter
      *
      * @return string
      */
-    public function getPresenterClass()
+    public function getPresenterClass(): string
     {
         return ProjectPresenter::class;
     }
@@ -239,7 +242,7 @@ class Project extends Model implements HasPresenter
      *
      * @return array
      */
-    public function heartbeatsStatus()
+    public function heartbeatsStatus(): array
     {
         if (empty($this->heartbeatStatus)) {
             $length = count($this->heartbeats);
@@ -262,7 +265,7 @@ class Project extends Model implements HasPresenter
      *
      * @return array
      */
-    public function applicationCheckUrlStatus()
+    public function applicationCheckUrlStatus(): array
     {
         if (empty($this->checkurlStatus)) {
             $length = count($this->checkUrls);
@@ -285,7 +288,7 @@ class Project extends Model implements HasPresenter
      *
      * @return string
      */
-    public function getGroupNameAttribute()
+    public function getGroupNameAttribute(): string
     {
         return $this->group->name;
     }
@@ -295,7 +298,7 @@ class Project extends Model implements HasPresenter
      *
      * @return string
      */
-    public function getWebhookUrlAttribute()
+    public function getWebhookUrlAttribute(): string
     {
         return route('webhook.deploy', $this->hash);
     }
@@ -305,7 +308,7 @@ class Project extends Model implements HasPresenter
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getTagsAttribute()
+    public function getTagsAttribute(): Collection
     {
         $tags = $this->refs()
                      ->where('is_tag', true)
@@ -330,9 +333,9 @@ class Project extends Model implements HasPresenter
     /**
      * Gets the list of all branches for the project which are not the default.
      *
-     * @return array
+     * @return Collection
      */
-    public function getBranchesAttribute()
+    public function getBranchesAttribute(): Collection
     {
         return $this->refs()
                     ->where('is_tag', false)
@@ -348,7 +351,7 @@ class Project extends Model implements HasPresenter
      *
      * @return string
      */
-    public function mirrorPath()
+    public function mirrorPath(): string
     {
         return storage_path('app/mirrors/' . preg_replace('/[^_\-.\-a-zA-Z0-9\s]/u', '_', $this->repository));
     }
@@ -358,7 +361,7 @@ class Project extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function group()
+    public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
@@ -368,7 +371,7 @@ class Project extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function servers()
+    public function servers(): HasMany
     {
         return $this->hasMany(Server::class)
                     ->orderBy('order', 'ASC');
@@ -379,7 +382,7 @@ class Project extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function heartbeats()
+    public function heartbeats(): HasMany
     {
         return $this->hasMany(Heartbeat::class)
                     ->orderBy('name');
@@ -390,7 +393,7 @@ class Project extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function deployments()
+    public function deployments(): HasMany
     {
         return $this->hasMany(Deployment::class)
                     ->orderBy('started_at', 'DESC');
@@ -401,7 +404,7 @@ class Project extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function channels()
+    public function channels(): HasMany
     {
         return $this->hasMany(Channel::class)
                     ->orderBy('name');
@@ -412,7 +415,7 @@ class Project extends Model implements HasPresenter
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function checkUrls()
+    public function checkUrls(): HasMany
     {
         return $this->hasMany(CheckUrl::class);
     }
@@ -425,7 +428,7 @@ class Project extends Model implements HasPresenter
      * @see Project::getTagsAttribute()
      * @see Project::getBranchesAttribute()
      */
-    public function refs()
+    public function refs(): HasMany
     {
         return $this->hasMany(Ref::class);
     }

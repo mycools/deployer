@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\View\Presenters;
 
@@ -65,7 +65,7 @@ abstract class Presenter extends BasePresenter
      *
      * @return string
      */
-    private function toCamelCase($key)
+    private function toCamelCase($key): string
     {
         return Str::camel('present_' . $key);
     }

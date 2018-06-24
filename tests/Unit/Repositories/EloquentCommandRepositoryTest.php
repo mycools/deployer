@@ -2,6 +2,7 @@
 
 namespace REBELinBLUE\Deployer\Tests\Unit\Repositories;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Mockery as m;
 use REBELinBLUE\Deployer\Command;
 use REBELinBLUE\Deployer\Repositories\Contracts\CommandRepositoryInterface;
@@ -64,12 +65,12 @@ class EloquentCommandRepositoryTest extends EloquentRepositoryTestCase
         $fields                 = ['foo' => 'bar', 'servers' => $expectedServer];
         $update                 = ['foo' => 'bar'];
 
-        $server = m::mock(Server::class);
-        $server->shouldReceive('sync')->once()->with($expectedServer);
+        $relation = m::mock(BelongsToMany::class);
+        $relation->shouldReceive('sync')->once()->with($expectedServer);
 
         $expected = m::mock(Command::class);
         $expected->shouldReceive('update')->once()->with($update);
-        $expected->shouldReceive('servers')->once()->andReturn($server);
+        $expected->shouldReceive('servers')->once()->andReturn($relation);
         $expected->shouldReceive('getAttribute')->with('servers');
 
         $model = m::mock(Command::class);
@@ -163,12 +164,12 @@ class EloquentCommandRepositoryTest extends EloquentRepositoryTestCase
             'order'       => 0,
         ];
 
-        $servers = m::mock(Server::class);
-        $servers->shouldReceive('sync')->once()->with(['a-server-id']);
+        $relation = m::mock(BelongsToMany::class);
+        $relation->shouldReceive('sync')->once()->with(['a-server-id']);
 
         $expected = m::mock(Command::class);
         $expected->shouldReceive('getAttribute')->with('servers');
-        $expected->shouldReceive('servers')->andReturn($servers);
+        $expected->shouldReceive('servers')->andReturn($relation);
 
         $model = m::mock(Command::class);
         $model->shouldReceive('where')->once()->with('target_type', $target)->andReturnSelf();

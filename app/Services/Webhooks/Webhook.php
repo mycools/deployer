@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Services\Webhooks;
 
@@ -31,7 +31,7 @@ abstract class Webhook
      *
      * @return bool
      */
-    abstract public function isRequestOrigin();
+    abstract public function isRequestOrigin(): bool;
 
     /**
      * Parses the request for a push webhook body.

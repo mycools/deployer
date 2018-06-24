@@ -3,6 +3,7 @@
 namespace REBELinBLUE\Deployer\Tests\Unit\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Console\Migrations\FreshCommand;
 use Illuminate\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Foundation\Application;
 use Mockery as m;
@@ -88,7 +89,9 @@ class ResetAppTest extends TestCase
             return true;
         }), m::any());
 
-        $migrate->shouldReceive('run')->once()->with(m::on(function (ArrayInput $arg) {
+
+        $refresh = m::mock(FreshCommand::class);
+        $refresh->shouldReceive('run')->once()->with(m::on(function (ArrayInput $arg) {
             $this->assertTrue($arg->getParameterOption('--seed'));
             $this->assertTrue($arg->getParameterOption('--force'));
 
@@ -100,7 +103,7 @@ class ResetAppTest extends TestCase
         $this->console->shouldReceive('find')->with('down')->andReturn($command);
         $this->console->shouldReceive('find')->with('migrate')->andReturn($migrate);
         $this->console->shouldReceive('find')->with('app:update')->andReturn($update);
-        $this->console->shouldReceive('find')->with('migrate:refresh')->andReturn($migrate);
+        $this->console->shouldReceive('find')->with('migrate:fresh')->andReturn($refresh);
         $this->console->shouldReceive('find')->with('queue:flush')->andReturn($command);
         $this->console->shouldReceive('find')->with('queue:restart')->andReturn($command);
         $this->console->shouldReceive('find')->with('up')->andReturn($command);

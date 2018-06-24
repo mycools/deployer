@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Validators;
 
@@ -14,9 +14,13 @@ class RepositoryValidator implements ValidatorInterface
      *
      * @return bool
      */
-    public function validate(...$args)
+    public function validate(...$args): bool
     {
         $value = $args[1];
+
+        if (is_null($value)) {
+            return false;
+        }
 
         // Plain old git repo
         if (preg_match('/^(ssh|git|https?):\/\//', $value)) {

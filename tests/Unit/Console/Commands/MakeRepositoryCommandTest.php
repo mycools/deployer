@@ -109,7 +109,7 @@ class MakeRepositoryCommandTest extends TestCase
 
     private function concreteData()
     {
-        return '<?php
+        return '<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Repositories;
 
@@ -124,7 +124,7 @@ class EloquentFooBarRepository extends EloquentRepository implements FooBarRepos
 
     private function contractData()
     {
-        return '<?php
+        return '<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Repositories\Contracts;
 

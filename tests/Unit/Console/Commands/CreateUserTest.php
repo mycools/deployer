@@ -139,7 +139,7 @@ class CreateUserTest extends TestCase
 
         $this->validation->shouldReceive('make')->andReturnSelf();
         $this->validation->shouldReceive('passes')->andReturn(false);
-        $this->validation->shouldReceive('errors->first')->andReturnSelf();
+        $this->validation->shouldReceive('errors->first')->andReturn('error');
 
         $this->expectException(RuntimeException::class);
         $this->doesntexpectEvents(UserWasCreated::class);

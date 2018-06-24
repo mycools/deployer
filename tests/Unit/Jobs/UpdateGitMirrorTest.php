@@ -112,7 +112,7 @@ class UpdateGitMirrorTest extends TestCase
 
         $this->process->shouldReceive('run')->once();
         $this->process->shouldReceive('isSuccessful')->once()->andReturn(false);
-        $this->process->shouldReceive('getErrorOutput')->once();
+        $this->process->shouldReceive('getErrorOutput')->once()->andReturn('error');
         $this->project->shouldNotReceive('setAttribute')->with('last_mirrored', m::any());
 
         $this->doesntExpectJobs(UpdateGitReferences::class);

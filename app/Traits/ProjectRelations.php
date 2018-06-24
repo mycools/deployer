@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Traits;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use REBELinBLUE\Deployer\Command;
 use REBELinBLUE\Deployer\ConfigFile;
 use REBELinBLUE\Deployer\SharedFile;
@@ -17,7 +18,7 @@ trait ProjectRelations
      *
      * @return Command
      */
-    public function commands()
+    public function commands(): MorphMany
     {
         return $this->morphMany(Command::class, 'target')
                     ->orderBy('order', 'ASC');
@@ -28,7 +29,7 @@ trait ProjectRelations
      *
      * @return Variable
      */
-    public function variables()
+    public function variables(): MorphMany
     {
         return $this->morphMany(Variable::class, 'target');
     }
@@ -38,7 +39,7 @@ trait ProjectRelations
      *
      * @return SharedFile
      */
-    public function sharedFiles()
+    public function sharedFiles(): MorphMany
     {
         return $this->morphMany(SharedFile::class, 'target');
     }
@@ -48,7 +49,7 @@ trait ProjectRelations
      *
      * @return ConfigFile
      */
-    public function configFiles()
+    public function configFiles(): MorphMany
     {
         return $this->morphMany(ConfigFile::class, 'target');
     }

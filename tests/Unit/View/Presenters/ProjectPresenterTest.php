@@ -234,7 +234,7 @@ class ProjectPresenterTest extends TestCase
         $expected = 'fa-git-square';
 
         $project = m::mock(Project::class);
-        $project->shouldReceive('accessDetails')->andReturnNull();
+        $project->shouldReceive('accessDetails')->andReturn([]);
 
         $presenter = new ProjectPresenter($this->translator);
         $presenter->setWrappedObject($project);

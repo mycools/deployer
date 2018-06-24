@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\View\Presenters;
 
@@ -14,7 +14,7 @@ class DeployStepPresenter extends Presenter
      *
      * @return string
      */
-    public function presentName()
+    public function presentName(): string
     {
         if (!is_null($this->command_id)) {
             return $this->command->name;

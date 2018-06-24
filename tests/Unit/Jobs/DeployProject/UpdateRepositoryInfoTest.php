@@ -113,7 +113,7 @@ class UpdateRepositoryInfoTest extends TestCase
     {
         $this->expectException(RuntimeException::class);
         $this->process->shouldReceive('isSuccessful')->once()->andReturn(false);
-        $this->process->shouldReceive('getErrorOutput')->once();
+        $this->process->shouldReceive('getErrorOutput')->once()->andReturn('error');
 
         $this->job();
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Validators;
 
@@ -14,9 +14,14 @@ class ChannelValidator implements ValidatorInterface
      *
      * @return bool
      */
-    public function validate(...$args)
+    public function validate(...$args): bool
     {
-        $value           = $args[1];
+        $value = $args[1];
+
+        if (is_null($value)) {
+            return false;
+        }
+
         $first_character = substr($value, 0, 1);
 
         return (($first_character === '#' || $first_character === '@') && strlen($value) > 1);

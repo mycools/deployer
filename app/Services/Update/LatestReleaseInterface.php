@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Services\Update;
 
@@ -12,5 +12,5 @@ interface LatestReleaseInterface
     /**
      * @return bool
      */
-    public function isUpToDate();
+    public function isUpToDate(): bool;
 }

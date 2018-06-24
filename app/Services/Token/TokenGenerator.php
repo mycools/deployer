@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Services\Token;
 
@@ -17,7 +17,7 @@ class TokenGenerator implements TokenGeneratorInterface
      * @return string
      * @see Str::random()
      */
-    public function generateRandom($length = 32)
+    public function generateRandom(int $length = 32): string
     {
         return Str::random($length);
     }

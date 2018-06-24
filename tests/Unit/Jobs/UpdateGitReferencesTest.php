@@ -2,6 +2,7 @@
 
 namespace REBELinBLUE\Deployer\Tests\Unit\Jobs;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Mockery as m;
 use REBELinBLUE\Deployer\Jobs\UpdateGitReferences;
 use REBELinBLUE\Deployer\Project;
@@ -51,12 +52,12 @@ class UpdateGitReferencesTest extends TestCase
             'git_reference' => 'branch',
         ])->andReturnSelf();
 
-        $refs = m::mock(Ref::class); // FIXME: Is this the right class?
-        $refs->shouldReceive('delete')->once();
+        $relation = m::mock(HasMany::class);
+        $relation->shouldReceive('delete')->once();
 
         $project = m::mock(Project::class);
         $project->shouldReceive('mirrorPath')->once()->andReturn($mirror_dir);
-        $project->shouldReceive('refs')->once()->andReturn($refs);
+        $project->shouldReceive('refs')->once()->andReturn($relation);
         $project->shouldReceive('getAttribute')->with('id')->andReturn($this->project_id);
 
         $repository = m::mock(RefRepositoryInterface::class);

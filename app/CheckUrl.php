@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use REBELinBLUE\Deployer\Traits\BroadcastChanges;
 
@@ -95,7 +96,7 @@ class CheckUrl extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
@@ -105,7 +106,7 @@ class CheckUrl extends Model
      *
      * @return bool
      */
-    public function isHealthy()
+    public function isHealthy(): bool
     {
         return ($this->status === self::ONLINE);
     }

@@ -141,7 +141,7 @@ class SendFileToServerTest extends TestCase
 
         $this->process->shouldReceive('run')->once();
         $this->process->shouldReceive('isSuccessful')->once()->andReturn(false);
-        $this->process->shouldReceive('getErrorOutput')->once();
+        $this->process->shouldReceive('getErrorOutput')->once()->andReturn('error');
 
         $this->job();
     }

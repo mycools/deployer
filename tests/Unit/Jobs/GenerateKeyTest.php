@@ -80,7 +80,7 @@ class GenerateKeyTest extends TestCase
                       ->andReturnSelf();
         $this->process->shouldReceive('run')->once();
         $this->process->shouldReceive('isSuccessful')->andReturn(false);
-        $this->process->shouldReceive('getErrorOutput');
+        $this->process->shouldReceive('getErrorOutput')->andReturn('error');
 
         $project       = new Project();
         $project->name = $expectedProject;

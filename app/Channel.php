@@ -1,8 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use REBELinBLUE\Deployer\Traits\BroadcastChanges;
@@ -61,7 +63,7 @@ class Channel extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
@@ -133,7 +135,7 @@ class Channel extends Model
      * @param  string                                $event
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeForEvent($query, $event)
+    public function scopeForEvent($query, $event): Builder
     {
         return $query->where('on_' . $event, '=', true);
     }

@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use REBELinBLUE\Deployer\Events\HeartbeatRecovered;
 use REBELinBLUE\Deployer\Traits\BroadcastChanges;
@@ -64,7 +65,7 @@ class Heartbeat extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
@@ -82,7 +83,7 @@ class Heartbeat extends Model
      *
      * @return string
      */
-    public function getCallbackUrlAttribute()
+    public function getCallbackUrlAttribute(): string
     {
         return route('heartbeats', $this->hash);
     }
@@ -92,7 +93,7 @@ class Heartbeat extends Model
      *
      * @return bool
      */
-    public function pinged()
+    public function pinged(): bool
     {
         $isCurrentlyHealthy  = ($this->status === self::UNTESTED || $this->isHealthy());
 
@@ -112,7 +113,7 @@ class Heartbeat extends Model
      *
      * @return bool
      */
-    public function isHealthy()
+    public function isHealthy(): bool
     {
         return ($this->status === self::OK);
     }

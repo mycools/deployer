@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer;
 
@@ -12,7 +12,7 @@ class Settings
      *
      * @return array
      */
-    public function schemes()
+    public function schemes(): array
     {
         return ['afterglow', 'dawn', 'monokai', 'solarized-dark', 'solarized-light'];
     }
@@ -22,7 +22,7 @@ class Settings
      *
      * @return array
      */
-    public function themes()
+    public function themes(): array
     {
         return ['blue', 'blue-light',
                 'green', 'green-light',

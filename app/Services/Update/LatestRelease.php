@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Services\Update;
 
@@ -74,7 +74,7 @@ class LatestRelease implements LatestReleaseInterface
                 return false;
             }
 
-            return json_decode($response->getBody());
+            return json_decode($response->getBody()->getContents());
         });
 
         if (is_object($release) && property_exists($release, 'tag_name')) {
@@ -89,7 +89,7 @@ class LatestRelease implements LatestReleaseInterface
      *
      * @return bool
      */
-    public function isUpToDate()
+    public function isUpToDate(): bool
     {
         $latest_release = $this->latest();
 

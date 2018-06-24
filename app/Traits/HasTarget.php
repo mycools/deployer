@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace REBELinBLUE\Deployer\Traits;
+
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * A trait for target polymorphic relationship.
@@ -12,7 +14,7 @@ trait HasTarget
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function target()
+    public function target(): MorphTo
     {
         return $this->morphTo();
     }
