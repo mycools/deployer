@@ -2,12 +2,14 @@
 
 namespace REBELinBLUE\Deployer\Repositories\Contracts;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface RefRepositoryInterface
 {
     /**
      * @param array $fields
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function create(array $fields);
+    public function create(array $fields): Model;
 }

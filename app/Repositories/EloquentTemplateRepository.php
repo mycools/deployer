@@ -4,6 +4,7 @@ namespace REBELinBLUE\Deployer\Repositories;
 
 use REBELinBLUE\Deployer\Repositories\Contracts\TemplateRepositoryInterface;
 use REBELinBLUE\Deployer\Template;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * The template repository.
@@ -23,7 +24,7 @@ class EloquentTemplateRepository extends EloquentRepository implements TemplateR
     /**
      * {@inheritdoc}
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return $this->model
                     ->orderBy('name')

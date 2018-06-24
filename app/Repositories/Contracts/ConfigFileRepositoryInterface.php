@@ -2,6 +2,8 @@
 
 namespace REBELinBLUE\Deployer\Repositories\Contracts;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface ConfigFileRepositoryInterface
 {
     /**
@@ -9,7 +11,7 @@ interface ConfigFileRepositoryInterface
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function create(array $fields);
+    public function create(array $fields): Model;
 
     /**
      * @param array $fields
@@ -18,7 +20,7 @@ interface ConfigFileRepositoryInterface
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function updateById(array $fields, $model_id);
+    public function updateById(array $fields, int $model_id): Model;
 
     /**
      * @param int $model_id
@@ -26,5 +28,5 @@ interface ConfigFileRepositoryInterface
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      * @return bool
      */
-    public function deleteById($model_id);
+    public function deleteById(int $model_id);
 }

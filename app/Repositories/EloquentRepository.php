@@ -2,6 +2,9 @@
 
 namespace REBELinBLUE\Deployer\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Abstract class for eloquent repositories.
  * @SuppressWarnings(PHPMD.NumberOfChildren)
@@ -11,16 +14,16 @@ abstract class EloquentRepository
     /**
      * An instance of the model.
      *
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var Model
      */
     protected $model;
 
     /**
      * Get's all records from the model.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return $this->model->all();
     }
@@ -31,9 +34,9 @@ abstract class EloquentRepository
      * @param int $model_id
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function getById($model_id)
+    public function getById(int $model_id): Model
     {
         return $this->model->findOrFail($model_id);
     }
@@ -43,9 +46,9 @@ abstract class EloquentRepository
      *
      * @param array $fields
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function create(array $fields)
+    public function create(array $fields): Model
     {
         return $this->model->create($fields);
     }
@@ -56,9 +59,9 @@ abstract class EloquentRepository
      * @param array $fields
      * @param int   $model_id
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function updateById(array $fields, $model_id)
+    public function updateById(array $fields, int $model_id): Model
     {
         $model = $this->getById($model_id);
 
@@ -72,10 +75,11 @@ abstract class EloquentRepository
      *
      * @param int $model_id
      *
+     * @return bool|null
+     *
      * @throws \Exception
-     * @return bool
      */
-    public function deleteById($model_id)
+    public function deleteById(int $model_id)
     {
         $model = $this->getById($model_id);
 
@@ -90,7 +94,7 @@ abstract class EloquentRepository
      *
      * @return bool
      */
-    public function chunk($count, callable $callback)
+    public function chunk(int $count, callable $callback): bool
     {
         return $this->model->chunk($count, $callback);
     }
@@ -105,8 +109,9 @@ abstract class EloquentRepository
      *
      * @return bool
      */
-    public function chunkWhereIn($field, array $values, $count, callable $callback)
+    public function chunkWhereIn(string $field, array $values, int $count, callable $callback)
     {
+        // FIXME: This is only used in the CheckUrl repository so move it
         return $this->model->whereIn($field, $values, 'and', false)
                            ->chunk($count, $callback);
     }
@@ -119,7 +124,7 @@ abstract class EloquentRepository
      *
      * @return bool
      */
-    public function updateStatusAll($original, $updated)
+    public function updateStatusAll(int $original, int $updated): bool
     {
         return $this->model->where('status', '=', $original)
                            ->update(['status' => $updated]);

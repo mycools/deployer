@@ -2,6 +2,7 @@
 
 namespace REBELinBLUE\Deployer\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
 use REBELinBLUE\Deployer\Heartbeat;
 use REBELinBLUE\Deployer\Repositories\Contracts\HeartbeatRepositoryInterface;
 
@@ -24,9 +25,9 @@ class EloquentHeartbeatRepository extends EloquentRepository implements Heartbea
      * @param string $hash
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @return Heartbeat
+     * @return Model
      */
-    public function getByHash($hash)
+    public function getByHash(string $hash): Model
     {
         return $this->model->where('hash', $hash)->firstOrFail();
     }

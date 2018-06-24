@@ -2,6 +2,7 @@
 
 namespace REBELinBLUE\Deployer\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use REBELinBLUE\Deployer\Group;
 use REBELinBLUE\Deployer\Repositories\Contracts\GroupRepositoryInterface;
 
@@ -23,7 +24,7 @@ class EloquentGroupRepository extends EloquentRepository implements GroupReposit
     /**
      * {@inheritdoc}
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return $this->model
                     ->orderBy('order')

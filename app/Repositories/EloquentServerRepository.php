@@ -2,6 +2,8 @@
 
 namespace REBELinBLUE\Deployer\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use REBELinBLUE\Deployer\Jobs\TestServerConnection;
 use REBELinBLUE\Deployer\Repositories\Contracts\ServerRepositoryInterface;
@@ -27,7 +29,7 @@ class EloquentServerRepository extends EloquentRepository implements ServerRepos
     /**
      * {@inheritdoc}
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return $this->model
                     ->orderBy('name')
@@ -39,9 +41,9 @@ class EloquentServerRepository extends EloquentRepository implements ServerRepos
      *
      * @param array $fields
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function create(array $fields)
+    public function create(array $fields): Model
     {
         // Get the current highest server order
         $max = $this->model->where('project_id', $fields['project_id'])
@@ -76,7 +78,7 @@ class EloquentServerRepository extends EloquentRepository implements ServerRepos
     /**
      * @param int $server_id
      */
-    public function queueForTesting($server_id)
+    public function queueForTesting(int $server_id)
     {
         $server = $this->getById($server_id);
 
@@ -91,9 +93,9 @@ class EloquentServerRepository extends EloquentRepository implements ServerRepos
     /**
      * @param string $name
      *
-     * @return mixed
+     * @return Model
      */
-    public function queryByName($name)
+    public function queryByName(string $name): Model
     {
         return $this->model
                     ->where('name', 'LIKE', "%{$name}%")

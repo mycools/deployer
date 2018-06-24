@@ -2,6 +2,7 @@
 
 namespace REBELinBLUE\Deployer\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
 use REBELinBLUE\Deployer\Repositories\Contracts\UserRepositoryInterface;
 use REBELinBLUE\Deployer\User;
 
@@ -25,9 +26,9 @@ class EloquentUserRepository extends EloquentRepository implements UserRepositor
      *
      * @param array $fields
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function create(array $fields)
+    public function create(array $fields): Model
     {
         $fields['password'] = bcrypt($fields['password']);
 
@@ -40,9 +41,9 @@ class EloquentUserRepository extends EloquentRepository implements UserRepositor
      * @param array $fields
      * @param int   $model_id
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function updateById(array $fields, $model_id)
+    public function updateById(array $fields, int $model_id): Model
     {
         $user = $this->getById($model_id);
 
@@ -62,9 +63,9 @@ class EloquentUserRepository extends EloquentRepository implements UserRepositor
     /**
      * @param string $token
      *
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @return Model|null
      */
-    public function findByEmailToken($token)
+    public function findByEmailToken(string $token)
     {
         return $this->model->where('email_token', $token)->first();
     }
@@ -72,9 +73,9 @@ class EloquentUserRepository extends EloquentRepository implements UserRepositor
     /**
      * @param string $email
      *
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @return Model|null
      */
-    public function findByEmail($email)
+    public function findByEmail(string $email)
     {
         return $this->model->where('email', $email)->first();
     }

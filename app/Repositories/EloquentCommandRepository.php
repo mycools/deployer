@@ -2,6 +2,8 @@
 
 namespace REBELinBLUE\Deployer\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use REBELinBLUE\Deployer\Command;
 use REBELinBLUE\Deployer\Repositories\Contracts\CommandRepositoryInterface;
 
@@ -25,9 +27,9 @@ class EloquentCommandRepository extends EloquentRepository implements CommandRep
      *
      * @param array $fields
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function create(array $fields)
+    public function create(array $fields): Model
     {
         // Get the current highest command order
         $max = $this->model->where('target_type', $fields['target_type'])
@@ -66,9 +68,9 @@ class EloquentCommandRepository extends EloquentRepository implements CommandRep
      * @param array $fields
      * @param int   $model_id
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function updateById(array $fields, $model_id)
+    public function updateById(array $fields, int $model_id): Model
     {
         $model = $this->getById($model_id);
 
@@ -96,9 +98,9 @@ class EloquentCommandRepository extends EloquentRepository implements CommandRep
      * @param string $target
      * @param int    $step
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function getForDeployStep($target_id, $target, $step)
+    public function getForDeployStep(int $target_id, string $target, int $step): Collection
     {
         return $this->model->where('target_type', $target)
                            ->where('target_id', $target_id)

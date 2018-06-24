@@ -4,6 +4,7 @@ namespace REBELinBLUE\Deployer\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use REBELinBLUE\Deployer\Jobs\QueueUpdateGitMirror;
 use REBELinBLUE\Deployer\Jobs\SetupProject;
@@ -30,7 +31,7 @@ class EloquentProjectRepository extends EloquentRepository implements ProjectRep
     /**
      * {@inheritdoc}
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return $this->model
                     ->orderBy('name')
@@ -40,9 +41,9 @@ class EloquentProjectRepository extends EloquentRepository implements ProjectRep
     /**
      * @param array $fields
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Model
      */
-    public function create(array $fields)
+    public function create(array $fields): Model
     {
         $template = false;
         if (array_key_exists('template_id', $fields)) {
@@ -72,9 +73,9 @@ class EloquentProjectRepository extends EloquentRepository implements ProjectRep
      * @param int   $model_id
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function updateById(array $fields, $model_id)
+    public function updateById(array $fields, int $model_id): Model
     {
         $project = $this->getById($model_id);
 
@@ -95,9 +96,9 @@ class EloquentProjectRepository extends EloquentRepository implements ProjectRep
      * @param string $hash
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function getByHash($hash)
+    public function getByHash(string $hash): Model
     {
         return $this->model->where('hash', $hash)->firstOrFail();
     }
@@ -106,9 +107,8 @@ class EloquentProjectRepository extends EloquentRepository implements ProjectRep
      * @param int $model_id
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @return array
      */
-    public function refreshBranches($model_id)
+    public function refreshBranches(int $model_id)
     {
         $project = $this->getById($model_id);
 
@@ -124,7 +124,7 @@ class EloquentProjectRepository extends EloquentRepository implements ProjectRep
      *
      * @return Collection
      */
-    public function getLastMirroredBefore(Carbon $last_mirrored_since, $count, callable $callback)
+    public function getLastMirroredBefore(Carbon $last_mirrored_since, int $count, callable $callback): Collection
     {
         return $this->model->where('is_mirroring', false)
                            ->where('last_mirrored', '<', $last_mirrored_since)

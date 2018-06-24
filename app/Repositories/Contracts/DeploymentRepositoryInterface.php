@@ -2,6 +2,8 @@
 
 namespace REBELinBLUE\Deployer\Repositories\Contracts;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use REBELinBLUE\Deployer\Deployment;
 
 interface DeploymentRepositoryInterface
@@ -11,7 +13,7 @@ interface DeploymentRepositoryInterface
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function create(array $fields);
+    public function create(array $fields): Model;
 
     /**
      * @param int $model_id
@@ -19,19 +21,19 @@ interface DeploymentRepositoryInterface
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getById($model_id);
+    public function getById(int $model_id): Model;
 
     /**
      * @param int $model_id
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function abort($model_id);
+    public function abort(int $model_id);
 
     /**
      * @param int $project_id
      */
-    public function abortQueued($project_id);
+    public function abortQueued(int $project_id);
 
     /**
      * @param int $original
@@ -39,7 +41,7 @@ interface DeploymentRepositoryInterface
      *
      * @return bool
      */
-    public function updateStatusAll($original, $updated);
+    public function updateStatusAll(int $original, int $updated): bool;
 
     /**
      * @param int    $model_id
@@ -49,7 +51,7 @@ interface DeploymentRepositoryInterface
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function rollback($model_id, $reason = '', array $optional = []);
+    public function rollback(int $model_id, string $reason = '', array $optional = []): Model;
 
     /**
      * @param int $project_id
@@ -57,41 +59,41 @@ interface DeploymentRepositoryInterface
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getLatest($project_id, $paginate = 15);
+    public function getLatest(int $project_id, int $paginate = 15): Collection;
 
     /**
      * @param int $project_id
      *
      * @return Deployment
      */
-    public function getLatestSuccessful($project_id);
+    public function getLatestSuccessful(int $project_id): Model;
 
     /**
      * @param int $project_id
      *
      * @return int
      */
-    public function getTodayCount($project_id);
+    public function getTodayCount(int $project_id): int;
 
     /**
      * @param int $project_id
      *
      * @return int
      */
-    public function getLastWeekCount($project_id);
+    public function getLastWeekCount(int $project_id): int;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function getTimeline();
+    public function getTimeline(): Collection;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function getPending();
+    public function getPending(): Collection;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
-    public function getRunning();
+    public function getRunning(): Collection;
 }

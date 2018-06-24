@@ -2,22 +2,24 @@
 
 namespace REBELinBLUE\Deployer\Repositories\Contracts;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface ServerLogRepositoryInterface
 {
     /**
      * @param array $fields
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function create(array $fields);
+    public function create(array $fields): Model;
 
     /**
      * @param int $model_id
      *
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function getById($model_id);
+    public function getById(int $model_id): Model;
 
     /**
      * @param int $original
@@ -25,5 +27,5 @@ interface ServerLogRepositoryInterface
      *
      * @return bool
      */
-    public function updateStatusAll($original, $updated);
+    public function updateStatusAll(int $original, int $updated);
 }
