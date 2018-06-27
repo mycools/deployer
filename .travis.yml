@@ -59,6 +59,7 @@ script:
   - php artisan db:seed
   - php artisan migrate:rollback
   - composer test:phpcs
+  - composer test:phpcs:fix -- --verbose --dry-run
   # - composer test:phpmd
   - make phpunit-ci
   - composer test:phpdoc

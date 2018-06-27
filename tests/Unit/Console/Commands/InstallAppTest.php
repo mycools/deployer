@@ -304,7 +304,7 @@ class InstallAppTest extends TestCase
         ];
 
         // If only 1 language it is automatically selected
-        if (count($languages) === 1) {
+        if (\count($languages) === 1) {
             unset($input['lang']);
         }
 

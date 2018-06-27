@@ -137,7 +137,7 @@ class DeploymentController extends Controller
                 $decorated = $presenter->decorate($log);
 
                 $log->runtime = $log->runtime() === false ? null : $decorated->readable_runtime;
-                $log->output  = ((is_null($log->output) || !strlen($log->output)) ? null : '');
+                $log->output  = ((\is_null($log->output) || !\strlen($log->output)) ? null : '');
 
                 $output->push($log);
             }
@@ -189,7 +189,7 @@ class DeploymentController extends Controller
         }
 
         // Get the optional commands and typecast to integers
-        if ($request->has('optional') && is_array($request->get('optional'))) {
+        if ($request->has('optional') && \is_array($request->get('optional'))) {
             $data['optional'] = array_filter(array_map(function ($value) {
                 return filter_var($value, FILTER_VALIDATE_INT);
             }, $request->get('optional')));
@@ -231,7 +231,7 @@ class DeploymentController extends Controller
         $optional = [];
 
         // Get the optional commands and typecast to integers
-        if ($request->has('optional') && is_array($request->get('optional'))) {
+        if ($request->has('optional') && \is_array($request->get('optional'))) {
             $optional = array_filter(array_map(function ($value) {
                 return filter_var($value, FILTER_VALIDATE_INT);
             }, $request->get('optional')));

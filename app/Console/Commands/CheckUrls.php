@@ -71,7 +71,7 @@ class CheckUrls extends Command
             }
         }
 
-        if (count($period)) {
+        if (\count($period)) {
             $this->repository->chunkWhereIn('period', $period, self::URLS_TO_CHECK, function (Collection $urls) {
                 $this->dispatch(new RequestProjectCheckUrl($urls));
             });

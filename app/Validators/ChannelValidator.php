@@ -19,6 +19,6 @@ class ChannelValidator implements ValidatorInterface
         $value           = $args[1];
         $first_character = substr($value, 0, 1);
 
-        return (($first_character === '#' || $first_character === '@') && strlen($value) > 1);
+        return (($first_character === '#' || $first_character === '@') && \strlen($value) > 1);
     }
 }

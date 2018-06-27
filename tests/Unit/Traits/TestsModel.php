@@ -55,7 +55,7 @@ trait TestsModel
 
         $class = m::mock($class . "[$type]")->shouldIgnoreMissing()->asUndefined();
 
-        switch (count($args)) {
+        switch (\count($args)) {
             case 1:
                 $class->shouldReceive($type)
                       ->once()
@@ -97,7 +97,7 @@ trait TestsModel
         $mocked->shouldReceive($type)
                ->once()
                ->andReturnUsing(function () use (&$args) {
-                   $args = func_get_args();
+                   $args = \func_get_args();
 
                    return m::self();
                });

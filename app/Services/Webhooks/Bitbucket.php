@@ -37,7 +37,7 @@ class Bitbucket extends Webhook
         }
 
         $changes = $push['changes'];
-        if (!count($changes)) {
+        if (!\count($changes)) {
             return false;
         }
 

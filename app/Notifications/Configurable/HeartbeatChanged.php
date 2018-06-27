@@ -57,7 +57,7 @@ abstract class HeartbeatChanged extends Notification
     {
         $message = $this->translator->trans($translation, ['job' => $this->heartbeat->name]);
 
-        if (is_null($this->heartbeat->last_activity)) {
+        if (\is_null($this->heartbeat->last_activity)) {
             $heard_from = $this->translator->trans('app.never');
         } else {
             $heard_from = $this->heartbeat->last_activity->diffForHumans();
@@ -93,7 +93,7 @@ abstract class HeartbeatChanged extends Notification
         $message = $this->translator->trans($translation, ['job' => $this->heartbeat->name]);
         $url     = route('projects', ['id' => $this->heartbeat->project_id]);
 
-        if (is_null($this->heartbeat->last_activity)) {
+        if (\is_null($this->heartbeat->last_activity)) {
             $heard_from = $this->translator->trans('app.never');
         } else {
             $heard_from = $this->heartbeat->last_activity->diffForHumans();
@@ -152,7 +152,7 @@ abstract class HeartbeatChanged extends Notification
      */
     protected function buildTwilioMessage($translation)
     {
-        if (is_null($this->heartbeat->last_activity)) {
+        if (\is_null($this->heartbeat->last_activity)) {
             $heard_from = $this->translator->trans('app.never');
         } else {
             $heard_from = $this->heartbeat->last_activity->diffForHumans();
@@ -196,7 +196,7 @@ abstract class HeartbeatChanged extends Notification
                             ->url(route('projects', ['id' => $this->heartbeat->project_id]));
                     })
                     ->addAttribute(function (CardAttribute $attribute) {
-                        if (is_null($this->heartbeat->last_activity)) {
+                        if (\is_null($this->heartbeat->last_activity)) {
                             $heard_from = $this->translator->trans('app.never');
                         } else {
                             $heard_from = $this->heartbeat->last_activity->diffForHumans();

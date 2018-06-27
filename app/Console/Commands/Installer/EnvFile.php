@@ -117,7 +117,7 @@ class EnvFile
 
             $parts = explode('=', $line);
 
-            if (count($parts) < 2) {
+            if (\count($parts) < 2) {
                 continue;
             }
 

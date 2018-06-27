@@ -16,7 +16,7 @@ class DeployStepPresenter extends Presenter
      */
     public function presentName()
     {
-        if (!is_null($this->command_id)) {
+        if (!\is_null($this->command_id)) {
             return $this->command->name;
         } elseif ($this->stage === Command::DO_INSTALL) {
             return $this->translator->trans('commands.install');

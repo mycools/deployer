@@ -80,7 +80,7 @@ class WebhookController extends Controller
         if ($project->servers->where('deploy_code', true)->count() > 0) {
             $payload = $this->parseWebhookRequest($request, $project);
 
-            if (is_array($payload)) {
+            if (\is_array($payload)) {
                 $this->deploymentRepository->abortQueued($project->id);
 
                 $deployment = $this->deploymentRepository->create($payload);
@@ -154,14 +154,14 @@ class WebhookController extends Controller
     private function appendProjectSettings($payload, Request $request, Project $project)
     {
         // If the payload is empty return false
-        if (!is_array($payload) || !count($payload)) {
+        if (!\is_array($payload) || !\count($payload)) {
             return false;
         }
 
         $payload['project_id'] = $project->id;
 
         // If there is no branch set get it from the project
-        if (is_null($payload['branch']) || empty($payload['branch'])) {
+        if (\is_null($payload['branch']) || empty($payload['branch'])) {
             $payload['branch'] = $project->branch;
         }
 

@@ -9,6 +9,7 @@ use Illuminate\Queue\QueueManager;
 use Illuminate\Redis\RedisManager;
 use Mockery as m;
 use phpmock\mockery\PHPMockery as phpm;
+use REBELinBLUE\Deployer\Console\Commands\Installer\PhpChecker;
 use REBELinBLUE\Deployer\Console\Commands\Installer\Requirements;
 use REBELinBLUE\Deployer\Services\Filesystem\Filesystem;
 use REBELinBLUE\Deployer\Services\Scripts\Runner as Process;
@@ -25,6 +26,7 @@ class RequirementsTest extends TestCase
     private $redis;
     private $command;
     private $filesystem;
+    private $phpcheck;
 
     public function setUp()
     {
@@ -36,6 +38,7 @@ class RequirementsTest extends TestCase
         $this->config     = m::mock(ConfigRepository::class);
         $this->command    = m::mock(Command::class);
         $this->filesystem = m::mock(Filesystem::class);
+        $this->phpcheck   = m::mock(PhpChecker::class);
     }
 
     /**
@@ -54,19 +57,12 @@ class RequirementsTest extends TestCase
      */
     public function testCheckFails()
     {
-        $namespace = 'REBELinBLUE\Deployer\Console\Commands\Installer';
-
-        // Version check failure
-        phpm::mock($namespace, 'version_compare')->withAnyArgs()->andReturn(false);
-
-        // Extension check failure
-        phpm::mock($namespace, 'extension_loaded')->withAnyArgs()->andReturn(false);
-
-        // Disabled function check failure
-        phpm::mock($namespace, 'function_exists')->withAnyArgs()->andReturn(false);
-
         // Check PDO drivers
         phpm::mock('REBELinBLUE\Deployer\Console\Commands\Traits', 'pdo_drivers')->andReturn(['sqlserv']);
+
+        $this->phpcheck->shouldReceive('minimumVersion')->with(Requirements::MINIMUM_PHP_VERSION)->andReturn(false);
+        $this->phpcheck->shouldReceive('hasExtension')->withAnyArgs()->andReturn(false);
+        $this->phpcheck->shouldReceive('functionExists')->withAnyArgs()->andReturn(false);
 
         $this->process->shouldReceive('setCommandLine');
         $this->process->shouldReceive('setTimeout');
@@ -90,10 +86,17 @@ class RequirementsTest extends TestCase
         $this->command->shouldReceive('line')->with($callback);
         $this->command->shouldReceive('block')->with($callback);
 
-        $requirements = new Requirements($this->process, $this->config, $this->redis, $this->queue, $this->filesystem);
-        $actual       = $requirements->check($this->command);
+        $requirements = new Requirements(
+            $this->process,
+            $this->config,
+            $this->redis,
+            $this->queue,
+            $this->filesystem,
+            $this->phpcheck
+        );
+        $actual = $requirements->check($this->command);
 
-        $this->assertContains('PHP 7.0.8 or higher is required', $output);
+        $this->assertContains('PHP ' . Requirements::MINIMUM_PHP_VERSION . ' or higher is required', $output);
         $this->assertContains('Extension required: PDO, curl, gd, json, mbstring, openssl, tokenizer', $output);
         $this->assertContains('Function required: "proc_open". Is it disabled in php.ini?', $output);
         $this->assertContains('At least 1 PDO driver is required. Either sqlite, mysql or pgsql', $output);
@@ -123,19 +126,12 @@ class RequirementsTest extends TestCase
      */
     public function testCheck()
     {
-        $namespace = 'REBELinBLUE\Deployer\Console\Commands\Installer';
-
-        // Version check failure
-        phpm::mock($namespace, 'version_compare')->withAnyArgs()->andReturn(true);
-
-        // Extension check failure
-        phpm::mock($namespace, 'extension_loaded')->withAnyArgs()->andReturn(true);
-
-        // Disabled function check failure
-        phpm::mock($namespace, 'function_exists')->withAnyArgs()->andReturn(true);
-
         // Check PDO drivers
         phpm::mock('REBELinBLUE\Deployer\Console\Commands\Traits', 'pdo_drivers')->andReturn(['mysql']);
+
+        $this->phpcheck->shouldReceive('minimumVersion')->with(Requirements::MINIMUM_PHP_VERSION)->andReturn(true);
+        $this->phpcheck->shouldReceive('hasExtension')->withAnyArgs()->andReturn(true);
+        $this->phpcheck->shouldReceive('functionExists')->withAnyArgs()->andReturn(true);
 
         $this->process->shouldReceive('setCommandLine');
         $this->process->shouldReceive('setTimeout');
@@ -151,8 +147,15 @@ class RequirementsTest extends TestCase
         $this->command->shouldNotReceive('line');
         $this->command->shouldNotReceive('block');
 
-        $requirements = new Requirements($this->process, $this->config, $this->redis, $this->queue, $this->filesystem);
-        $actual       = $requirements->check($this->command);
+        $requirements = new Requirements(
+            $this->process,
+            $this->config,
+            $this->redis,
+            $this->queue,
+            $this->filesystem,
+            $this->phpcheck
+        );
+        $actual = $requirements->check($this->command);
 
         $this->assertTrue($actual);
     }

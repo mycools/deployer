@@ -19,7 +19,7 @@ trait RuntimePresenter
     {
         if (!$this->getWrappedObject() instanceof RuntimeInterface) {
             throw new RuntimeException(
-                'Model ' . get_class($this->getWrappedObject()) . ' must implement RuntimeInterface'
+                'Model ' . \get_class($this->getWrappedObject()) . ' must implement RuntimeInterface'
             );
         }
 

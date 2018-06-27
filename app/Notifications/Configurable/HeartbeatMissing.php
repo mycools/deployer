@@ -65,7 +65,7 @@ class HeartbeatMissing extends HeartbeatChanged
     public function toTwilio()
     {
         $translation = 'heartbeats.never_sms_message';
-        if (!is_null($this->heartbeat->last_activity)) {
+        if (!\is_null($this->heartbeat->last_activity)) {
             $translation = 'heartbeats.missing_sms_message';
         }
 

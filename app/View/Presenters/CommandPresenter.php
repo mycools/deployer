@@ -122,7 +122,7 @@ class CommandPresenter extends Presenter
             }
         }
 
-        if (count($commands)) {
+        if (\count($commands)) {
             return implode(', ', $commands);
         }
 

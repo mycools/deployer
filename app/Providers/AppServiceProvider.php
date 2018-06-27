@@ -7,9 +7,9 @@ use Clockwork\Support\Laravel\ClockworkMiddleware;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
 use GrahamCampbell\HTMLMin\HTMLMinServiceProvider;
 use GrahamCampbell\HTMLMin\Http\Middleware\MinifyMiddleware;
-use Laracademy\Commands\MakeServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Laracademy\Commands\MakeServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 use Lubusin\Decomposer\Decomposer;
 use REBELinBLUE\Deployer\Project;
@@ -133,13 +133,13 @@ class AppServiceProvider extends ServiceProvider
         $decomposer = $this->app->make(Decomposer::class);
 
         $decomposer->addServerStats([
-            'Curl Ext' => extension_loaded('curl'),
-            'GD Ext'   => extension_loaded('gd'),
-            'JSON Ext' => extension_loaded('json'),
+            'Curl Ext' => \extension_loaded('curl'),
+            'GD Ext'   => \extension_loaded('gd'),
+            'JSON Ext' => \extension_loaded('json'),
         ]);
 
         $decomposer->addExtraStats([
-            'proc_open enabled' => function_exists('proc_open'),
+            'proc_open enabled' => \function_exists('proc_open'),
         ]);
     }
 }

@@ -19,8 +19,8 @@ class UpdateServiceProvider extends ServiceProvider
     public function boot()
     {
         // Define a constant for the application version
-        if (!defined('APP_VERSION')) {
-            define('APP_VERSION', trim(file_get_contents(__DIR__ . '/../../VERSION')));
+        if (!\defined('APP_VERSION')) {
+            \define('APP_VERSION', trim(file_get_contents(__DIR__ . '/../../VERSION')));
         }
     }
 

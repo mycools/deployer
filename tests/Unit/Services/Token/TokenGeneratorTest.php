@@ -18,7 +18,7 @@ class TokenGeneratorTest extends TestCase
         $generator = new TokenGenerator();
         $token     = $generator->generateRandom();
 
-        $this->assertSame(32, strlen($token));
+        $this->assertSame(32, \strlen($token));
     }
 
     /**
@@ -30,7 +30,7 @@ class TokenGeneratorTest extends TestCase
         $generator = new TokenGenerator();
         $token     = $generator->generateRandom($expected);
 
-        $this->assertSame($expected, strlen($token));
+        $this->assertSame($expected, \strlen($token));
     }
 
     public function provideExpectedLengths()

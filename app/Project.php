@@ -226,7 +226,7 @@ class Project extends Model implements HasPresenter
                 $info['scheme'] = 'https';
             }
 
-            $branch = (is_null($alternative) ? $this->branch : $alternative);
+            $branch = (\is_null($alternative) ? $this->branch : $alternative);
 
             return $info['scheme'] . '://' . $info['domain'] . '/' . $info['reference'] . '/' . $path . '/' . $branch;
         }
@@ -242,7 +242,7 @@ class Project extends Model implements HasPresenter
     public function heartbeatsStatus()
     {
         if (empty($this->heartbeatStatus)) {
-            $length = count($this->heartbeats);
+            $length = \count($this->heartbeats);
             $missed = 0;
 
             foreach ($this->heartbeats as $beat) {
@@ -265,7 +265,7 @@ class Project extends Model implements HasPresenter
     public function applicationCheckUrlStatus()
     {
         if (empty($this->checkurlStatus)) {
-            $length = count($this->checkUrls);
+            $length = \count($this->checkUrls);
             $missed = 0;
 
             foreach ($this->checkUrls as $link) {

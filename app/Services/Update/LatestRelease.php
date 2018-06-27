@@ -62,7 +62,7 @@ class LatestRelease implements LatestReleaseInterface
                 'Accept' => 'application/vnd.github.v3+json',
             ];
 
-            if (!is_null($this->token)) {
+            if (!\is_null($this->token)) {
                 $headers['Authorization'] = 'token ' . $this->token;
             }
 
@@ -77,7 +77,7 @@ class LatestRelease implements LatestReleaseInterface
             return json_decode($response->getBody());
         });
 
-        if (is_object($release) && property_exists($release, 'tag_name')) {
+        if (\is_object($release) && property_exists($release, 'tag_name')) {
             return $release->tag_name;
         }
 

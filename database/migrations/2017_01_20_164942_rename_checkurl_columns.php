@@ -24,7 +24,7 @@ class RenameCheckurlColumns extends Migration
 
         CheckUrl::withTrashed()->chunk(100, function (Collection $urls) {
             foreach ($urls as $url) {
-                if (is_null($url->status)) {
+                if (\is_null($url->status)) {
                     $url->status = CheckUrl::UNTESTED;
                     $url->last_seen = $url->updated_at;
                 } elseif ($url->status === CheckUrl::UNTESTED) {

@@ -289,14 +289,14 @@ class RunnerTest extends TestCase
         $server->shouldReceive('getAttribute')->with('port')->andReturn($port);
         $server->shouldReceive('getAttribute')->with('ip_address')->andReturn($ip_address);
 
-        if (is_null($alternative_user)) {
+        if (\is_null($alternative_user)) {
             $server->shouldReceive('getAttribute')->with('user')->andReturn($username);
         }
 
         $expectedTokens = [
             'script'      => $script,
             'private_key' => $private_key,
-            'username'    => is_null($alternative_user) ? $username : $alternative_user,
+            'username'    => \is_null($alternative_user) ? $username : $alternative_user,
             'port'        => $port,
             'ip_address'  => $ip_address,
         ];

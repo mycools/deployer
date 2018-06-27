@@ -41,7 +41,7 @@ class Custom extends Webhook
         if ($this->request->has('commit')) {
             $commit = $this->request->get('commit');
 
-            if (strlen($commit) < 7) {
+            if (\strlen($commit) < 7) {
                 $commit = '';
             }
         }

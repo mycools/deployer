@@ -57,7 +57,7 @@ abstract class UrlChanged extends Notification
     {
         $message = $this->translator->trans($translation, ['link' => $this->url->name]);
 
-        if (is_null($this->url->last_seen)) {
+        if (\is_null($this->url->last_seen)) {
             $last_seen = $this->translator->trans('app.never');
         } else {
             $last_seen = $this->url->last_seen->diffForHumans();
@@ -94,7 +94,7 @@ abstract class UrlChanged extends Notification
         $message = $this->translator->trans($translation, ['link' => $this->url->name]);
         $url     = route('projects', ['id' => $this->url->project_id]);
 
-        if (is_null($this->url->last_seen)) {
+        if (\is_null($this->url->last_seen)) {
             $last_seen = $this->translator->trans('app.never');
         } else {
             $last_seen = $this->url->last_seen->diffForHumans();
@@ -150,7 +150,7 @@ abstract class UrlChanged extends Notification
      */
     protected function buildTwilioMessage($translation)
     {
-        if (is_null($this->url->last_seen)) {
+        if (\is_null($this->url->last_seen)) {
             $last_seen = $this->translator->trans('app.never');
         } else {
             $last_seen = $this->url->last_seen->diffForHumans();
@@ -194,7 +194,7 @@ abstract class UrlChanged extends Notification
                             ->url(route('projects', ['id' => $this->url->project_id]));
                     })
                     ->addAttribute(function (CardAttribute $attribute) {
-                        if (is_null($this->url->last_seen)) {
+                        if (\is_null($this->url->last_seen)) {
                             $last_seen = $this->translator->trans('app.never');
                         } else {
                             $last_seen = $this->url->last_seen->diffForHumans();

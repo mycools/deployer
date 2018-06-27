@@ -2,7 +2,7 @@
 
 use REBELinBLUE\Deployer\Services\Token\TokenGeneratorInterface;
 
-if (!function_exists('token')) {
+if (!\function_exists('token')) {
     /**
      * Generates a random string for use as tokens.
      *

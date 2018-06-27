@@ -69,7 +69,7 @@ class DeployStep extends Model implements HasPresenter
      */
     public function isCustom()
     {
-        return (!in_array($this->stage, [
+        return (!\in_array($this->stage, [
             Command::DO_CLONE,
             Command::DO_INSTALL,
             Command::DO_ACTIVATE,

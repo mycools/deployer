@@ -63,7 +63,7 @@ class ClearOldKeys extends Command
 
         $folders = $this->filesystem->glob($tmp_dir . '/clone_*'); // cloned copies of code
 
-        $this->info('Found ' . count($files) . ' files and ' . count($folders) . ' folders to purge');
+        $this->info('Found ' . \count($files) . ' files and ' . \count($folders) . ' folders to purge');
 
         $minimum_age = Carbon::now()->subHours(self::KEEP_FILES_FOR_HOURS)->timestamp;
 

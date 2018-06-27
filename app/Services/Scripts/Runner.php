@@ -80,11 +80,11 @@ class Runner
      */
     public function __call($method, array $arguments)
     {
-        if (!is_callable([$this->process, $method])) {
+        if (!\is_callable([$this->process, $method])) {
             throw new \RuntimeException('Method ' . $method . ' not exists');
         }
 
-        return call_user_func_array([$this->process, $method], $arguments);
+        return \call_user_func_array([$this->process, $method], $arguments);
     }
 
     /**

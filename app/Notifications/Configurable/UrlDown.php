@@ -65,7 +65,7 @@ class UrlDown extends UrlChanged
     public function toTwilio()
     {
         $translation = 'checkUrls.never_sms_message';
-        if (!is_null($this->url->last_seen)) {
+        if (!\is_null($this->url->last_seen)) {
             $translation = 'checkUrls.down_sms_message';
         }
 

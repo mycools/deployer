@@ -17,6 +17,8 @@ class Requirements
 {
     use GetAvailableOptions;
 
+    const MINIMUM_PHP_VERSION = '7.0.8';
+
     /**
      * @var Process
      */
@@ -53,6 +55,11 @@ class Requirements
     private $filesystem;
 
     /**
+     * @var PhpChecker
+     */
+    private $phpCheck;
+
+    /**
      * Requirements constructor.
      *
      * @param Process          $process
@@ -60,19 +67,22 @@ class Requirements
      * @param RedisManager     $redis
      * @param QueueManager     $queue
      * @param Filesystem       $filesystem
+     * @param PhpChecker       $phpCheck
      */
     public function __construct(
         Process $process,
         ConfigRepository $config,
         RedisManager $redis,
         QueueManager $queue,
-        Filesystem $filesystem
+        Filesystem $filesystem,
+        PhpChecker $phpCheck
     ) {
         $this->process    = $process;
         $this->config     = $config;
         $this->redis      = $redis;
         $this->queue      = $queue;
         $this->filesystem = $filesystem;
+        $this->phpCheck   = $phpCheck;
     }
 
     /**
@@ -110,8 +120,8 @@ class Requirements
     private function versionCheck()
     {
         // Check PHP version:
-        if (!version_compare(PHP_VERSION, '7.0.8', '>=')) {
-            $this->console->error('PHP 7.0.8 or higher is required');
+        if (!$this->phpCheck->minimumVersion(self::MINIMUM_PHP_VERSION)) {
+            $this->console->error('PHP ' . self::MINIMUM_PHP_VERSION . ' or higher is required');
             $this->errors = true;
         }
     }
@@ -126,16 +136,16 @@ class Requirements
 
         $missing = [];
         foreach ($required_extensions as $extension) {
-            if (!extension_loaded($extension)) {
+            if (!$this->phpCheck->hasExtension($extension)) {
                 $missing[] = $extension;
             }
         }
 
-        if (count($missing)) {
+        if (\count($missing)) {
             asort($missing);
 
             $this->console->error('Extension required: ' . implode(', ', $missing));
-            $this->errors =  true;
+            $this->errors = true;
         }
     }
 
@@ -144,7 +154,7 @@ class Requirements
      */
     private function hasDatabaseDriver()
     {
-        if (!count($this->getDatabaseDrivers())) {
+        if (!\count($this->getDatabaseDrivers())) {
             $this->console->error(
                 'At least 1 PDO driver is required. Either sqlite, mysql or pgsql, check your php.ini file'
             );
@@ -161,7 +171,7 @@ class Requirements
     private function disabledFunctionCheck()
     {
         // Functions needed by symfony process
-        if (!function_exists('proc_open')) {
+        if (!$this->phpCheck->functionExists('proc_open')) {
             $this->console->error('Function required: "proc_open". Is it disabled in php.ini?');
             $this->errors = true;
         }
@@ -186,7 +196,7 @@ class Requirements
             }
         }
 
-        if (count($missing)) {
+        if (\count($missing)) {
             asort($missing);
 
             $this->console->error('Commands not found: ' . implode(', ', $missing));

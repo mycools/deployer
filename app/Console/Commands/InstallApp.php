@@ -507,7 +507,7 @@ class InstallApp extends Command
         }
 
         // If there is only 1 locale just use that
-        if (count($locales) === 1) {
+        if (\count($locales) === 1) {
             $locale = $locales[0];
         } else {
             $default = array_search($this->config->get('app.fallback_locale'), $locales, true);

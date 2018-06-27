@@ -16,7 +16,7 @@ trait OutputStyles
     {
         $output = [];
 
-        if (!is_array($messages)) {
+        if (!\is_array($messages)) {
             $messages = (array) $messages;
         }
 

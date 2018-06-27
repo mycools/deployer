@@ -17,17 +17,17 @@ trait BroadcastChanges
     public static function bootBroadcastChanges()
     {
         static::created(function ($model) {
-            $channel = strtolower(class_basename(get_class($model)));
+            $channel = strtolower(class_basename(\get_class($model)));
             event(new ModelCreated($model, $channel));
         });
 
         static::updated(function ($model) {
-            $channel = strtolower(class_basename(get_class($model)));
+            $channel = strtolower(class_basename(\get_class($model)));
             event(new ModelChanged($model, $channel));
         });
 
         static::deleted(function ($model) {
-            $channel = strtolower(class_basename(get_class($model)));
+            $channel = strtolower(class_basename(\get_class($model)));
             event(new ModelTrashed($model, $channel));
         });
     }
