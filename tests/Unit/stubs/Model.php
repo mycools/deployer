@@ -15,6 +15,6 @@ class Model extends BaseModel implements HasPresenter, RuntimeInterface
 
     public function getPresenterClass()
     {
-        return StubPresenter::class;
+        return Presenter::class;
     }
 }

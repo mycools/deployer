@@ -12,7 +12,17 @@ use REBELinBLUE\Deployer\Tests\TestCase;
  */
 class EnvFileTest extends TestCase
 {
+    /** @var Filesystem */
     private $filesystem;
+
+    /** @var string */
+    private $prev;
+
+    /** @var string */
+    private $env;
+
+    /** @var string */
+    private $dist;
 
     public function setUp()
     {

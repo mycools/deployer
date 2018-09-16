@@ -5,6 +5,7 @@ namespace REBELinBLUE\Deployer\Tests\Unit\Jobs;
 use Mockery as m;
 use REBELinBLUE\Deployer\Jobs\UpdateGitReferences;
 use REBELinBLUE\Deployer\Project;
+use REBELinBLUE\Deployer\Ref;
 use REBELinBLUE\Deployer\Repositories\Contracts\RefRepositoryInterface;
 use REBELinBLUE\Deployer\Services\Scripts\Runner as Process;
 use REBELinBLUE\Deployer\Tests\TestCase;

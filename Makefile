@@ -81,6 +81,10 @@ phpmd: ##@tests PHP Mess Detector
 	@if [ -f phpmd.xml ]; then docker-compose exec php-fpm php vendor/bin/phpmd app text phpmd.xml; fi
 	@if [ ! -f phpmd.xml ]; then docker-compose exec php-fpm composer test:phpmd; fi
 
+phpstan: ##@tests Static analysis
+	@echo "${GREEN}PHP static analysis${RESET}"
+	docker-compose exec php-fpm composer test:static
+
 phpcpd: ##@tests PHP Copy/Paste Detector
 	@echo "${GREEN}PHP Copy/Paste Detector${RESET}"
 	@docker-compose exec php-fpm composer test:phpcpd

@@ -1,6 +1,6 @@
 <?php
 
-namespace REBELinBLUE\Deployer\Unit\Tests\Providers;
+namespace REBELinBLUE\Deployer\Tests\Unit\Providers;
 
 use REBELinBLUE\Deployer\Tests\TestCase;
 

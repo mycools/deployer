@@ -4,6 +4,7 @@ namespace REBELinBLUE\Deployer\Tests\Unit\Repositories;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Mockery as m;
+use REBELinBLUE\Deployer\Command;
 use REBELinBLUE\Deployer\Jobs\TestServerConnection;
 use REBELinBLUE\Deployer\Project;
 use REBELinBLUE\Deployer\Repositories\Contracts\ServerRepositoryInterface;

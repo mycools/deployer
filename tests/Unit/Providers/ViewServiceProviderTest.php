@@ -2,6 +2,7 @@
 
 namespace REBELinBLUE\Deployer\Tests\Unit\Providers;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Mockery as m;
 use REBELinBLUE\Deployer\Providers\ViewServiceProvider;

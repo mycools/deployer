@@ -27,7 +27,7 @@ class InstallApp extends RealInstallApp
     /**
      * @param string   $question
      * @param array    $choices
-     * @param callback $validator
+     * @param callable $validator
      * @param mixed    $default
      *
      * @return string

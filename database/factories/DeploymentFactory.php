@@ -8,16 +8,16 @@ use REBELinBLUE\Deployer\User;
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Deployment::class, function (Generator $faker) {
     return [
-        'project_id' => function () {
+        'project_id'      => function () {
             return factory(Project::class)->create()->id;
         },
-        'user_id' => function () {
+        'user_id'         => function () {
             return factory(User::class)->create()->id;
         },
-        'committer' => $faker->unique()->name,
-        'committer' => $faker->unique()->safeEmail,
-        'status'    => Deployment::COMPLETED,
-        'commit'    => $faker->unique()->sha1,
-        'branch'    => 'master',
+        'committer'       => $faker->unique()->name,
+        'committer_email' => $faker->unique()->safeEmail,
+        'status'          => Deployment::COMPLETED,
+        'commit'          => $faker->unique()->sha1,
+        'branch'          => 'master',
     ];
 });

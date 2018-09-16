@@ -8,6 +8,7 @@ use Illuminate\Routing\Redirector;
 use Mockery as m;
 use REBELinBLUE\Deployer\Events\JsonWebTokenExpired;
 use REBELinBLUE\Deployer\Http\Middleware\RefreshJsonWebToken;
+use REBELinBLUE\Deployer\Http\Requests\Request;
 use REBELinBLUE\Deployer\Tests\TestCase;
 use REBELinBLUE\Deployer\User;
 use Symfony\Component\HttpFoundation\Response;

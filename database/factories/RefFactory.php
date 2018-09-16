@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator;
+use REBELinBLUE\Deployer\Project;
 use REBELinBLUE\Deployer\Ref;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */

@@ -7,6 +7,7 @@ use REBELinBLUE\Deployer\Events\Observers\ProjectObserver;
 use REBELinBLUE\Deployer\Jobs\GenerateKey;
 use REBELinBLUE\Deployer\Jobs\RegeneratePublicKey;
 use REBELinBLUE\Deployer\Project;
+use REBELinBLUE\Deployer\Services\Token\TokenGeneratorInterface;
 use REBELinBLUE\Deployer\Tests\TestCase;
 
 /**

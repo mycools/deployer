@@ -1,6 +1,6 @@
 <?php
 
-namespace REBELinBLUE\Deployer\tests\Integration;
+namespace REBELinBLUE\Deployer\Tests\Integration;
 
 use Carbon\Carbon;
 use DOMDocument;

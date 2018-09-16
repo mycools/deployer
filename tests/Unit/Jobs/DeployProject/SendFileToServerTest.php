@@ -46,9 +46,12 @@ class SendFileToServerTest extends TestCase
     private $private_key;
 
     /**
-     * @var Formatter
+     * @var LogFormatter
      */
     private $formatter;
+
+    /** @var ServerLog */
+    private $log;
 
     /**
      * @covers ::__construct

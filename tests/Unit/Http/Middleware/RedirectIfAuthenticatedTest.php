@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Routing\Redirector;
 use Mockery as m;
 use REBELinBLUE\Deployer\Http\Middleware\RedirectIfAuthenticated;
+use REBELinBLUE\Deployer\Http\Requests\Request;
 use REBELinBLUE\Deployer\Tests\TestCase;
 
 /**

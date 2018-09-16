@@ -1,6 +1,6 @@
 <?php
 
-namespace REBELinBLUE\Deployer\tests\Unit\Events;
+namespace REBELinBLUE\Deployer\Tests\Unit\Events;
 
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Mockery as m;
