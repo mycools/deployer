@@ -27,7 +27,7 @@ services:
       - "8001:8025"
 
   redis:
-    image: phpdockerio/redis:latest
+    image: redis:alpine
     container_name: deployer-redis
 
   mysql:
@@ -35,11 +35,12 @@ services:
     container_name: deployer-mysql
     working_dir: /application
     ports:
-      - "3306:3306"
+      - "3366:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=deployer
       - MYSQL_USER=deployer
+      - MYSQL_PORT=3366
       - MYSQL_PASSWORD=secret
     volumes:
       - data:/var/lib/mysql
