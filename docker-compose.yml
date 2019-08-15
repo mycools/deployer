@@ -11,8 +11,6 @@ services:
     volumes:
       - .:/application
       - ./docker/node/supervisord.conf:/etc/supervisor/supervisord.conf
-    ports:
-      - "6001:6001"
     links:
       - redis
 
@@ -23,8 +21,6 @@ services:
   mailhog:
     image: phpdockerio/mailhog:latest
     container_name: deployer-mailhog
-    ports:
-      - "8001:8025"
 
   redis:
     image: redis:alpine
@@ -34,13 +30,11 @@ services:
     image: mysql:5.7
     container_name: deployer-mysql
     working_dir: /application
-    ports:
-      - "3366:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_DATABASE=deployer
       - MYSQL_USER=deployer
-      - MYSQL_PORT=3366
+      - MYSQL_PORT=3306
       - MYSQL_PASSWORD=secret
     volumes:
       - data:/var/lib/mysql
