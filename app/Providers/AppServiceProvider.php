@@ -58,6 +58,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
         // Set up the morph map for the polymorphic relationships
         Relation::morphMap([
             'project'  => Project::class,
