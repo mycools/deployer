@@ -31,7 +31,7 @@ class Project extends Model implements HasPresenter
      */
     protected $fillable = ['name', 'repository', 'branch', 'group_id', 'include_dev',
                            'builds_to_keep', 'url', 'build_url', 'allow_other_branch',
-                           'private_key', ];
+                           'private_key', 'namespace' ];
 
     /**
      * The attributes excluded from the model's JSON form.

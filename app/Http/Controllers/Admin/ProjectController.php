@@ -88,7 +88,8 @@ class ProjectController extends Controller
             'include_dev',
             'private_key',
             'managers',
-            'users'
+            'users',
+            'namespace'
         )), Response::HTTP_CREATED);
     }
 
@@ -114,7 +115,8 @@ class ProjectController extends Controller
             'include_dev',
             'private_key',
             'managers',
-            'users'
+            'users',
+            'namespace'
         ), $project_id);
     }
 }

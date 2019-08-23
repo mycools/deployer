@@ -161,6 +161,7 @@ class ScriptBuilder
             'deployer_name'   => $deployer_name,
             'committer_email' => $this->deployment->committer_email,
             'committer_name'  => $this->deployment->committer,
+            'namespace' => $this->deployment->project->namespace,
         ];
 
         if (!$this->step->isCustom()) {

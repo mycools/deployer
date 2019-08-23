@@ -63,6 +63,13 @@
                                         <input type="text" class="form-control" name="url" id="project_url" placeholder="http://www.example.com" />
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="project_namespace">{{ trans('projects.namespace') }}</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-hashtag"></i></div>
+                                        <input type="text" class="form-control" name="namespace" id="project_namespace" placeholder="namespace" />
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="tab-pane" id="project_members">
