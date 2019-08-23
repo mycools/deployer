@@ -142,11 +142,15 @@ class ScriptBuilder
         // Set the deployer tags
         $deployer_email = '';
         $deployer_name  = 'webhook';
+        $namespace = "deploy";
         if ($this->deployment->user) {
             $deployer_name  = $this->deployment->user->name;
             $deployer_email = $this->deployment->user->email;
         } elseif ($this->deployment->is_webhook && !empty($this->deployment->source)) {
             $deployer_name = $this->deployment->source;
+        }
+        if($this->deployment->project->namespace){
+            $namespace = $this->deployment->project->namespace;
         }
 
         $tokens = [
@@ -161,7 +165,7 @@ class ScriptBuilder
             'deployer_name'   => $deployer_name,
             'committer_email' => $this->deployment->committer_email,
             'committer_name'  => $this->deployment->committer,
-            'namespace' => $this->deployment->project->namespace,
+            'namespace'       => $namespace,
         ];
 
         if (!$this->step->isCustom()) {
