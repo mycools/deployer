@@ -56,5 +56,6 @@ return [
                            'that you let Deployer generate an SSH key rather than supply one yourself so that the ' .
                            'private key is not transmitted over an insecure connection.',
     'users'             => 'Users',
+    'namespace'         => 'Namespace'
 
 ];
