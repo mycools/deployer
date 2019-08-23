@@ -2,7 +2,7 @@
 
 return [
 
-    'name'              => 'Deployer',
+    'name'              => config('app.name','Deployer'),
     'signout'           => 'Sign Out',
     'toggle_nav'        => 'Toggle Navigation',
     'dashboard'         => 'Dashboard',
