@@ -47,6 +47,7 @@
                                 <li><code>@{{ deployer_name }}</code> - {{ trans('commands.deployer_name') }}, {{ trans('commands.example') }} <span class="label label-default">{{ $logged_in_user->name }}</span></li>
                                 <li><code>@{{ committer_email }}</code> - {{ trans('commands.committer_email') }}, {{ trans('commands.example') }} <span class="label label-default">joe.bloggs@example.com</span></li>
                                 <li><code>@{{ committer_name }}</code> - {{ trans('commands.committer_name') }}, {{ trans('commands.example') }} <span class="label label-default">Joe Bloggs</span></li>
+                                <li><code>@{{ namespace }}</code> - {{ trans('commands.namespace') }}, {{ trans('commands.example') }} <span class="label label-default">deploy</span></li>
                             </ul>
                         </div>
                     </div>
