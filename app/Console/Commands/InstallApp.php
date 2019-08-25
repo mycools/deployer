@@ -412,7 +412,7 @@ class InstallApp extends Command
             if ($type !== 'sqlite') {
                 $defaultPort = $type === 'mysql' ? 3306 : 5432;
 
-                $host = $this->anticipate('Host', ['localhost'], 'localhost');
+                $host = $this->anticipate('Host', ['127.0.0.1'], '127.0.0.1');
                 $port = $this->anticipate('Port', [$defaultPort], $defaultPort);
                 $name = $this->anticipate('Name', ['deployer'], 'deployer');
                 $user = $this->ask('Username', 'deployer');
