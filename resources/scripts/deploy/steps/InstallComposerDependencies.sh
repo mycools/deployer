@@ -23,7 +23,7 @@ if [ -f {{ release_path }}/composer.json ]; then
     fi
 
     cd {{ release_path }}
-    
+
     # Check if the --no-suggest flag exists, from composer >= 1.2
     suggest=""
     if [ $(${composer} help install | grep 'no-suggest' | wc -l) -gt 0 ]; then
@@ -38,6 +38,14 @@ if [ -f {{ release_path }}/composer.json ]; then
         ${composer} install --no-interaction --optimize-autoloader \
                           --no-dev --prefer-dist ${suggest} --no-ansi --working-dir {{ release_path }}
     fi
+fi
+
+
+cd {{ project_path }}
+
+if [ -f {{ release_path }}/package.json ]; then
+    cd {{ release_path }}
+    npm i
 fi
 
 cd {{ release_path }}
