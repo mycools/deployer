@@ -40,12 +40,4 @@ if [ -f {{ release_path }}/composer.json ]; then
     fi
 fi
 
-
-cd {{ project_path }}
-
-if [ -f {{ release_path }}/package.json ]; then
-    cd {{ release_path }}
-    npm i
-fi
-
 cd {{ release_path }}
