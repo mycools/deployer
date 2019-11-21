@@ -149,6 +149,23 @@ class EloquentProjectRepository extends EloquentRepository implements ProjectRep
     {
         return $this->model->where('hash', $hash)->firstOrFail();
     }
+	
+	/**
+     * @param string $$payload
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getByPayload($payload)
+    {
+        return $this->model
+        	->where(function($query) use ($payload){
+	        	return $query->orWhere('repository', $payload['optional']['project']['git_ssh_url'])->orWhere('repository', $payload['optional']['project']['git_http_url']);
+        	})
+        	->where('branch', $payload['branch'])
+        	->get();
+    }
+
 
     /**
      * @param int $model_id

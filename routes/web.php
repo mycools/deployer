@@ -4,7 +4,9 @@
 
 // Include the API routes inside an app path and add the authentication middleware to protect them
 $router->middleware(['auth', 'jwt'])->group(base_path('routes/api.php'));
-
+$router->get('/test',function(){
+	return "tttt";
+});
 // Dashboard routes
 $router->get('timeline', 'DashboardController@timeline')->name('dashboard.timeline');
 $router->get('/', 'DashboardController@index')->name('dashboard');

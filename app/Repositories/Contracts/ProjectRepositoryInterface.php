@@ -13,6 +13,14 @@ interface ProjectRepositoryInterface
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function getByHash($hash);
+    
+    /**
+     * @param string $payload
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getByPayload($payload);
 
     /**
      * @param bool $with_user
