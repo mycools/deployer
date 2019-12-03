@@ -1,9 +1,6 @@
 ### Install composer dependencies - {{ deployment }}
-cd {{ project_path }}
-
-# If there is no composer file, skip this step
-if [ -f {{ release_path }}/composer.json ]; then
-    # Check composer is installed
+checkcomposer() {
+	# Check composer is installed
     if type -P composer &> /dev/null; then
         composer="$(command -v composer)"
     else
@@ -22,6 +19,10 @@ if [ -f {{ release_path }}/composer.json ]; then
         fi
     fi
 
+   
+}
+installpackage() {
+
     cd {{ release_path }}
 
     # Check if the --no-suggest flag exists, from composer >= 1.2
@@ -38,6 +39,31 @@ if [ -f {{ release_path }}/composer.json ]; then
         ${composer} install --no-interaction --optimize-autoloader \
                           --no-dev --prefer-dist ${suggest} --no-ansi --working-dir {{ release_path }}
     fi
+}
+cd {{ project_path }}
+
+# If there is no composer file, skip this step
+if [ -f {{ release_path }}/composer.json ]; then
+	checkcomposer
+	if [ -f {{ project_path }}/latest/composer.json ]; then
+		hash1=`md5sum {{ release_path }}/composer.json | awk '{print $1}'`
+		hash2=`md5sum {{ project_path }}/latest/composer.json | awk '{print $1}'`
+		if [ "$hash1" = "$hash2" ]
+		then
+		  echo "composer.json are the same."
+		  cp -R {{ project_path }}/latest/vendor /{{ release_path }}/vendor
+		  cd {{ release_path }}
+		  ${composer} dump-autoload
+		else
+		  echo "composer.json are different ($hash1)($hash2)."
+		  installpackage
+		fi
+	else
+		installpackage
+    
+	fi
+	
+    
 fi
 
 cd {{ release_path }}
