@@ -78,6 +78,9 @@ class WebhookAutoController extends Controller
 	    $payload = $this->parseAutoWebhookRequest($request);
 	    
 	    $projects = $this->projectRepository->getByPayload($payload);
+        if(!$projects->count()){
+           return response()->json([]); 
+        }  
 	    foreach($projects as $project){
 		    if ($project->servers->where('deploy_code', true)->count() > 0) {
 			    $payload = $this->parseWebhookRequest($request, $project);
