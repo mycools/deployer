@@ -162,7 +162,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left btn-delete"><i class="fa fa-trash"></i> {{ trans('app.delete') }}</button>
-                    <button type="button" class="btn btn-primary pull-right btn-copy"><i class="fa fa-file-o"></i> Make Copy</button>
+                    
                     <button type="button" class="btn btn-primary pull-right btn-save"><i class="fa fa-save"></i> {{ trans('app.save') }}</button>
                 </div>
             </form>
