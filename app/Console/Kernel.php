@@ -19,7 +19,7 @@ use REBELinBLUE\Deployer\Console\Commands\MakeRepositoryCommand;
 use REBELinBLUE\Deployer\Console\Commands\ResetApp;
 use REBELinBLUE\Deployer\Console\Commands\UpdateApp;
 use REBELinBLUE\Deployer\Console\Commands\UpdateGitMirrors;
-
+use REBELinBLUE\Deployer\Console\Commands\CopyProject;
 /**
  * Kernel class.
  */
@@ -45,6 +45,7 @@ class Kernel extends ConsoleKernel
         AppVersion::class,
         ExportCommand::class,
         MakeRepositoryCommand::class,
+        CopyProject::class
     ];
 
     /**
